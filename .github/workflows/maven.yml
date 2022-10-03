@@ -35,5 +35,5 @@ jobs:
       uses: dorny/test-reporter@v1.5.0
       with:
        name: Run Tests
-       path: "target/report*.xml"
+       path: "target/report*"
        reporter: java-junit
