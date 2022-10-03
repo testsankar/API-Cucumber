@@ -22,5 +22,18 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    - name: Cache Maven packages
+    #This action allows caching dependencies and build outputs to improve workflow execution time.
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn clean test
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.5.0
+      with:
+       name: Run Tests
+       path: "target/report*.xml"
+       reporter: java-junit
